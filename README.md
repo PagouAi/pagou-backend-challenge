@@ -1,4 +1,6 @@
-![Pagou.ai](/media/logo.svg?raw=true "Logo")
+<p align="center">
+<img src="/media/logo.svg?raw=true" alt="Logo" style="width:50%" />
+</p>
 
 # Desafio Back-end - Pagou.ai
 
