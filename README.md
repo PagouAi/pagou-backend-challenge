@@ -1,3 +1,7 @@
+<p align="center">
+<img src="/media/logo.svg?raw=true" alt="Logo" style="width:50%" />
+</p>
+
 # Desafio Back-end - Pagou.ai
 
 Fala Dev! Tudo bem?
@@ -16,11 +20,11 @@ Esta API deverá seguir o mínimo de práticas RESTful e pode conter listagens, 
 
 Para concluir o teste com sucesso você deve saber (ou aprender) um pouco sobre as seguintes tecnologias:
 
-* Conceitos de API RESTful
-* Modelagem de dados
-* NodeJS
-* Banco de Dados (por exemplo, MySQL, PgSQL, MongoDB, etc...)
-* Git
+- Conceitos de API RESTful
+- Modelagem de dados
+- NodeJS
+- Banco de Dados (por exemplo, MySQL, PgSQL, MongoDB, etc...)
+- Git
 
 Vamos ao teste!
 
@@ -35,39 +39,42 @@ As operações consistem basicamente em: permitir que os nossos clientes recebam
 
 Considerando as informações acima, temos duas entidades que as representam:
 
-* `transactions`: informações da compra, dados do comprador, forma de pagamento, valor, etc
-* `payables`: recebíveis que serão pagos ao cliente
+- `transactions`: informações da compra, dados do comprador, forma de pagamento, valor, etc
+- `payables`: recebíveis que serão pagos ao cliente
 
 ## Requisitos
 
 Para esse desafio iremos focar especialmente na primeira função especificada, o "cash-in", neste momento não iremos considerar a possibilidade de vários clientes o que traria uma maior complexidade para este desafio o que não é nosso objetivo, sendo assim, você deve criar um serviço com os seguintes requisitos:
 
 1. O serviço deve processar transações, recebendo as seguintes informações:
-    * Valor da transação em centavos. Ex:`2099` representa R$20,99 - Obs: pontos flutuantes e textos não são aceitáveis e devem retornar um erro de entidade não processável.
-    * Descrição da transação. Ex: `'Airpods'`
-    * Método de pagamento (`pix` ou `credit_card`)
-    * Nome do Pagador
-    * CPF do Pagador Ex: `12345678900` - Obs: Apenas números são aceitos
-    * Número do cartão (Obrigatório somente se metódo for `credit_card`) - Obs: Apenas números são aceitos
-    * Data de validade do cartão (MMAA) (Obrigatório somente se metódo for `credit_card` Obs: Apenas números são aceitos
-    * Código de verificação do cartão (CVV) (Obrigatório somente se metódo for `credit_card`) - Obs: Apenas números são aceitos
 
+   - Valor da transação em centavos. Ex:`2099` representa R$20,99 - Obs: pontos flutuantes e textos não são aceitos.
+   - Descrição da transação. Ex: `'Airpods'`
+   - Método de pagamento (`pix` ou `credit_card`)
+   - Nome do Pagador
+   - CPF do Pagador Ex: `12345678900` - Obs: Apenas números são aceitos
+   - Número do cartão (Obrigatório somente se metódo for `credit_card`) - Obs: Apenas números são aceitos.
+   - Data de validade do cartão (MMAA) (Obrigatório somente se metódo for `credit_card` Obs: Apenas números são aceitos.
+   - Código de verificação do cartão (CVV) (Obrigatório somente se metódo for `credit_card`) - Obs: Apenas números são aceitos.
+
+   > Nota: Quando valores não aceitos forem enviados o sistema deve retornar um erro de entidade não processável especificando quão campo contém dados fora do formato aceitável.
 
 ### Payload
 
 Este é apenas um exemplo, você pode fazer uma proposta de payload, como preferir:
 
 POST /transaction
- ```json
+
+```json
 {
-    "amount" : 1000,
-    "description" : "Cafe",
-    "method" : "pix",
-    "name": "John Doe",
-    "cpf": 12345678900,
-    "card_number": null,
-    "valid": null,
-    "cvv": null
+	"amount": 1000,
+	"description": "Cafe",
+	"method": "pix",
+	"name": "John Doe",
+	"cpf": 12345678900,
+	"card_number": null,
+	"valid": null,
+	"cvv": null
 }
 ```
 
@@ -77,22 +84,23 @@ POST /transaction
 
 4. O serviço deve criar os recebíveis do cliente (`payables`), seguindo as seguintes regras:
 
-    * Se a transação for feita com um pix:
-        * O payable deve ser criado com status = `paid` (indicando que o cliente já recebeu esse valor)
-        * O payable deve ser criado com a data de pagamento (payment_date) = data da criação da transação (D+0).
+   - Se a transação for feita com um pix:
 
-    * Se a transação for feita com um cartão de crédito:
-        * O payable deve ser criado com status = `waiting_funds` (indicando que o cliente vai receber esse dinheiro no futuro)
-        * O payable deve ser criado com a data de pagamento (payment_date) = data da criação da transação + 15 dias (D+15).
+     - O payable deve ser criado com status = `paid` (indicando que o cliente já recebeu esse valor)
+     - O payable deve ser criado com a data de pagamento (payment_date) = data da criação da transação (D+0).
+
+   - Se a transação for feita com um cartão de crédito:
+     - O payable deve ser criado com status = `waiting_funds` (indicando que o cliente vai receber esse dinheiro no futuro)
+     - O payable deve ser criado com a data de pagamento (payment_date) = data da criação da transação + 15 dias (D+15).
 
 5. No momento de criação dos payables também deve ser descontado a taxa de processamento (que chamamos de `fee`) do cliente. Ex: se a taxa for 8% e o cliente processar uma transação de R$100,00, ele só receberá R$92,00. Considere as seguintes taxas:
 
-    * 2.99% para transações feitas com pix
-    * 8.99% para transações feitas com um cartão de crédito
+   - 2.99% para transações feitas com pix
+   - 8.99% para transações feitas com um cartão de crédito
 
 6. O serviço deve prover um meio de consulta para que o cliente visualize seu saldo com as seguintes informações:
-    * Saldo `available` (disponível): tudo que o cliente já recebeu (payables `paid`)
-    * Saldo `waiting_funds` (a receber): tudo que o cliente tem a receber (payables `waiting_funds`)
+   - Saldo `available` (disponível): tudo que o cliente já recebeu (payables `paid`)
+   - Saldo `waiting_funds` (a receber): tudo que o cliente tem a receber (payables `waiting_funds`)
 
 > Nota: neste desafio, você não precisa se preocupar com parcelamento.
 
@@ -105,27 +113,27 @@ POST /transaction
 
 ## O que será avaliado?
 
-* Documentação
-* Ser consistente e saber argumentar suas escolhas
-* Apresentar boas soluções que domina
-* Modelagem de Dados
-* Manutenibilidade do Código
-* Tratamento de erros
-* Cuidados com itens de segurança
-* Se for para vaga sênior, foque bastante no desenho de arquitetura
-* Código limpo e organizado (nomenclatura, etc)
-* Testes bem estruturados (previsão de erros)
+- Documentação
+- Ser consistente e saber argumentar suas escolhas
+- Apresentar boas soluções que domina
+- Modelagem de Dados
+- Manutenibilidade do Código
+- Tratamento de erros
+- Cuidados com itens de segurança
+- Se for para vaga sênior, foque bastante no desenho de arquitetura
+- Código limpo e organizado (nomenclatura, etc)
+- Testes bem estruturados (previsão de erros)
 
 ## O que será um diferencial?
 
-* Uso de Docker
-* Uso de Design Patterns
-* Documentação completa (com endpoits, payloads e resultados esperados)
-* Propostas de melhoria na arquitetura
+- Uso de Docker
+- Uso de Design Patterns
+- Documentação completa (com endpoits, payloads e resultados esperados)
+- Propostas de melhoria na arquitetura
 
 ## Avaliação
 
 1. Crie um repositório público em seu Github, não cite ou mencione a Pagou.ai em qualquer momento ou arquivo dentro do repositório, ao concluir o desafio compartilhe o link para o repositório do Github com o responsável pelo seu teste, nesse momento seu código será considerado entregue e não serão mais aceitas modificações.
-3. Depois que corrigirmos o desafio, te chamaremos para conversar com o time, você deverá apresentar o desafio em execução em sua máquina, onde iremos conversar sobre pontos que julgarmos necessários e discutir sobre as decisões que você tomou
-4. Achamos que **1 semana** é um tempo ok para fazer o desafio, mas sabemos que nem todo mundo tem o mesmo nível de disponibilidade. Portanto, nos avise se precisar de mais tempo, ok?
-5. Boa sorte :)
+2. Depois que corrigirmos o desafio, te chamaremos para conversar com o time, você deverá apresentar o desafio em execução em sua máquina, onde iremos conversar sobre pontos que julgarmos necessários e discutir sobre as decisões que você tomou
+3. Achamos que **1 semana** é um tempo ok para fazer o desafio, mas sabemos que nem todo mundo tem o mesmo nível de disponibilidade. Portanto, nos avise se precisar de mais tempo, ok?
+4. Boa sorte :)
