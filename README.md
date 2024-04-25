@@ -6,15 +6,15 @@
 
 Fala Dev! Tudo bem?
 
-Primeiramente, obrigado pelo seu interesse em trabalhar conosco e buscar crescer ao nosso lado! Abaixo você encontrará todos as informações necessárias para iniciar o seu teste.
+Primeiramente, obrigado pelo seu interesse em trabalhar conosco e buscar crescer ao nosso lado! Abaixo você encontrará todas as informações necessárias para iniciar o seu teste.
 
 ## Objetivo
 
-Este teste tem como objetivo avaliar e desafiar você. É sugerido realizá-lo completamente sem auxilio de ferramentas de autocomplete ou pair-code, no entanto não é proíbido, queremos apenas reconhecer seu esforço e potencial para compreender o desafio, aprender, se adaptar e tomar decisões baseado no que será apresentado.
+Este teste tem como objetivo avaliar e desafiar você. É sugerido realizá-lo completamente sem auxílio de ferramentas de autocomplete ou pair-code, no entanto não é proibido, queremos apenas reconhecer seu esforço e potencial para compreender o desafio, aprender, se adaptar e tomar decisões baseado no que será apresentado.
 
 Neste desafio você deverá construir uma versão simplificada de um Payment Service Provider (PSP), seu conhecimento será testado e você poderá aprender um pouco mais sobre como funcionam as plataformas de pagamentos no Brasil.
 
-## O que preciso para fazer?
+## O que necessito saber para fazer?
 
 Esta API deverá seguir o mínimo de práticas RESTful e pode conter listagens, busca, paginação e filtros. Fique à vontade para decidir quais filtros são mais interessantes.
 
@@ -35,7 +35,7 @@ Um PSP consiste basicamente em duas funções essenciais:
 1. Permitir que nossos clientes processem transações ("cash-in")
 2. Transferir recebíveis para os nossos clientes ("cash-out")
 
-As operações consistem basicamente em: permitir que os nossos clientes recebam pagamenos pelos produtos ou serviços prestados e permitir que recebam o valor após determinado tempo, que muda de acordo com a forma de pagamento.
+As operações consistem basicamente em: permitir que os nossos clientes recebam pagamentos pelos produtos ou serviços prestados e permitir que recebam o valor após determinado tempo, que muda de acordo com a forma de pagamento.
 
 Considerando as informações acima, temos duas entidades que as representam:
 
@@ -106,10 +106,10 @@ POST /transaction
 
 ## Restrições
 
-1. O serviço deve ser escrito em Node.js com um framework de sua preferência, encorajamos o uso de Fastify ou Hono.
-2. O serviço deve armazenar informações em um banco de dados. Você pode escolher o banco que achar melhor mas, tenha em mente que na Pagou.ai usamos amplamente PostgreSQL.
-3. O projeto deve ter um README.md com todas as instruções sobre como executar e testar o projeto e os serviços disponibilizados.
-4. O projeto deve conter testes automatizados, sugerimos utilizar Jest.
+1. O serviço **deve ser escrito em Node.js** com um framework de sua preferência, encorajamos o uso de Fastify ou Hono.
+2. O serviço **deve armazenar informações em um banco de dados**. Você pode escolher o banco que achar melhor mas, tenha em mente que na Pagou.ai usamos amplamente PostgreSQL.
+3. O projeto **deve ter um README.md com todas as instruções** sobre como executar e testar o projeto e os serviços disponibilizados.
+4. O projeto **deve conter testes unitários**, sugerimos utilizar Jest.
 
 ## O que será avaliado?
 
@@ -128,12 +128,12 @@ POST /transaction
 
 - Uso de Docker
 - Uso de Design Patterns
-- Documentação completa (com endpoits, payloads e resultados esperados)
+- Documentação completa (com endpoints, payloads e resultados esperados)
 - Propostas de melhoria na arquitetura
 
 ## Avaliação
 
 1. Crie um repositório público em seu Github, não cite ou mencione a Pagou.ai em qualquer momento ou arquivo dentro do repositório, ao concluir o desafio compartilhe o link para o repositório do Github com o responsável pelo seu teste, nesse momento seu código será considerado entregue e não serão mais aceitas modificações.
-2. Depois que corrigirmos o desafio, te chamaremos para conversar com o time, você deverá apresentar o desafio em execução em sua máquina, onde iremos conversar sobre pontos que julgarmos necessários e discutir sobre as decisões que você tomou
-3. Achamos que **1 semana** é um tempo ok para fazer o desafio, mas sabemos que nem todo mundo tem o mesmo nível de disponibilidade. Portanto, nos avise se precisar de mais tempo, ok?
+2. Depois que corrigirmos o desafio, te chamamos para conversar com o time, você deverá apresentar o desafio em execução em sua máquina, onde iremos conversar sobre pontos que julgarmos necessários e discutir sobre as decisões que você tomou
+3. Achamos que **5 dias** é um tempo ok para fazer o desafio, mas sabemos que nem todo mundo tem o mesmo nível de disponibilidade. Portanto, nos avise se precisar de mais tempo, ok?
 4. Boa sorte :)
